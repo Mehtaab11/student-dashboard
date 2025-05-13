@@ -27,7 +27,7 @@ const Dashboard = () => {
     };
 
     fetchData();
-  }, []);
+  }, [filteredStudents , students]);
 
   // Apply filter whenever courseFilter or students change
   useEffect(() => {

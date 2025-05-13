@@ -26,7 +26,14 @@ function App() {
             }
           />
           <Route path="*" element={<h1>404 Not Found</h1>} />
-          <Route path="/add-student" element={<AddStudent />} />
+          <Route
+            path="/add-student"
+            element={
+              <ProtectedRoute>
+                <AddStudent />{" "}
+              </ProtectedRoute>
+            }
+          />
         </Routes>
       </BrowserRouter>
     </>
