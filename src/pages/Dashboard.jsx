@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import StudentCard from "../components/StudentCard";
 import { signOut } from "firebase/auth";
@@ -8,6 +8,7 @@ import { auth } from "../configs/firebase";
 const Dashboard = () => {
   const [response, setResponse] = useState(null);
   const [students, setStudents] = useState([]);
+  const [isDeleted, setIsDeleted] = useState(false);
   const [filteredStudents, setFilteredStudents] = useState([]);
   const [courseFilter, setCourseFilter] = useState("all"); // Track selected course filter
   const navigate = useNavigate();
@@ -27,7 +28,7 @@ const Dashboard = () => {
     };
 
     fetchData();
-  }, [filteredStudents , students]);
+  }, [isDeleted]);
 
   // Apply filter whenever courseFilter or students change
   useEffect(() => {
@@ -47,9 +48,6 @@ const Dashboard = () => {
     console.log("Sign out");
   };
 
-  const addStudentHandler = () => {
-    navigate("/add-student");
-  };
 
   // Extract unique courses from students for filter options
   const getUniqueCourses = () => {
@@ -62,12 +60,12 @@ const Dashboard = () => {
       <div className="flex items-center justify-between px-10 py-6 text-white">
         <h1 className="text-2xl text-white font-semibold">Dashboard</h1>
         <div className="flex gap-2">
-          <button
-            onClick={addStudentHandler}
+          <Link to={"/add-student"}
+       
             className="bg-yellow-700 cursor-pointer px-4 py-3 rounded-md text-sm font-semibold"
           >
             Add Student
-          </button>
+          </Link>
           <button
             onClick={handleSignOut}
             className="bg-red-700 cursor-pointer px-4 py-3 rounded-md text-sm font-semibold"
@@ -105,6 +103,7 @@ const Dashboard = () => {
             <StudentCard
               key={e.id}
               id={e.id}
+              setIsDeleted={setIsDeleted}
               imageUrl={e.imageUrl}
               name={e.name}
               age={e.age}

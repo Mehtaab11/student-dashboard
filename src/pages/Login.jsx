@@ -39,7 +39,7 @@ const Login = () => {
         </p>
         {error && (
           <div className="mb-4 text-red-500 text-sm">
-            Looks like user dont exist u can just <Link className="text-blue-800" to={'/signup'}> signup</Link>
+            Looks like user do not exist, You can just <Link className="text-blue-800" to={'/signup'}> signup</Link>
           </div>
         )}
         <div className="flex flex-col gap-4">
